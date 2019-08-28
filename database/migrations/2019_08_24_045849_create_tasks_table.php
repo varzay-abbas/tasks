@@ -18,7 +18,7 @@ class CreateTasksTable extends Migration
             $table->integer("parent_id")->nullable();
             $table->integer("user_id");
             $table->string("title", 255);
-            $table->integer("point")->default(0);
+            $table->integer("points")->default(0);
             $table->boolean("is_done")->default(0);
             $table->timestamps();
         });

@@ -15,7 +15,13 @@ use Illuminate\Http\Request;
 
 Route::get('/users', 'UserController@getUsers');
 Route::get('/tasks', 'TaskController@getTasks');
+Route::get('/tasks-tree', 'TaskController@getTasksTree');
 Route::post('/task', 'TaskController@addTask');
+Route::put('/task/{id}', 'TaskController@updateTask');
+Route::get('/task/parent/{id}', 'TaskController@getParent');
+Route::get('/task/{id}/subtasks', 'TaskController@getSubtasks');
+
+
  
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

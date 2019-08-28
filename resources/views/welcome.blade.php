@@ -38,7 +38,7 @@
                @isset($users) 
                <tr> 
                     @foreach($users->data as $user)
-                    <th >{{$user->first_name." ".$user->last_name}} ( {{ $user->total_earned_point.'/'. $user->total_point}} )
+                    <th >{{$user->first_name." ".$user->last_name}} ( {{ $user->total_earned_points.'/'. $user->total_points}} )
 
 <div  class="top_new_task_btn" ><a onclick="setUserInfo({{json_encode($user)}}, 0)" data-toggle="modal" data-target="#taskModal" > <i class="fa fa-plus"> </i> </a> 
                         </div>
@@ -56,7 +56,7 @@
                            @if(count($user->tasks))
                              <ul>
                              @foreach($user->tasks as $task) 
-                                <li>{{$task->title}} ( {{$task->point}} ) 
+                                <li>{{$task->title}} ( {{$task->points}} ) 
                                     <span   class="sub_task_container"> 
                                       <a onclick="setUserInfo({{json_encode($user)}}, {{$task->id}})" data-toggle="modal" data-target="#taskModal" > <i class="fa fa-plus"> </i> </a> &nbsp;&nbsp;| 
                                       <a onclick="setUserInfo({{json_encode($user)}}, {{$task->id}})" data-toggle="modal" data-target="#taskModal" > <i class="fa fa-pencil"> </i> </a> 
@@ -105,8 +105,8 @@
             </div>
 
             <div class="form-group">
-              <label for="point">Point:</label>              
-              <input type="number" min="1" max="10" required class="form-control" name="point" id="point" value="1">
+              <label for="points">Points:</label>              
+              <input type="number" min="1" max="10" required class="form-control" name="points" id="points" value="1">
             </div>
 
 
