@@ -27,6 +27,13 @@ class TaskController extends Controller
      * @var array type
      */
     protected $github_users = [];
+    //point of all descendent ids
+    protected $id_points = [];
+    //check if any of the descedent id has is_done 0 value
+    protected $id_undone = [];
+    //check if given id has any descendents
+    protected $id_descendants = [];
+
 
     /**
     * Create a new controller instance.
@@ -41,6 +48,16 @@ class TaskController extends Controller
     //
     public function index()
     {
+        
+        //$task = Task::find(1);  
+        //print_r($task->getDescendentIdsArray());
+
+        
+        //
+        $this->getTaskIdsChildInfo();
+
+       // print_r($this->getDescendentIdsAndSelf(1));
+        //die();
         try {
             $users = ServicesGithub::getUsers();
             foreach ($users->data as $user) {
@@ -49,11 +66,35 @@ class TaskController extends Controller
                 $user->tasks = $this->getUserTasks($user->id);
             }
            // return response()->json($users);
-            return view("welcome2", compact("users"));
+           //fix each id point, done status, descendants  
+           $this->getTaskIdsChildInfo();
+            
+            $id_points = $this->id_points;
+            $id_undone = $this->id_undone;
+            $id_descendants = $this->id_descendants;
+
+            return view("welcome2", compact("users", "id_points", "id_undone", "id_descendants"));
         } catch (Exception $e) {
             report($e);
             return false;
         }
+    }
+    
+    public function getDescendentIdsFor($id) 
+    {        
+         $task = Task::find($id);  
+         return $task->getDescendentIdsArray();
+    }
+
+    public function getTaskIdsChildInfo() {
+        $ids = Task::pluck("id")->toArray();
+        
+        foreach($ids as $id) {
+            $this->id_points[$id] = Task::whereIn("id", $this->getDescendentIdsFor($id))->sum("points");
+            $this->id_undone[$id] = Task::whereIn("id", $this->getDescendentIdsFor($id))->where("is_done", 0)->count();
+            $this->id_descendants[$id] = $this->getDescendentIdsFor($id);
+        }
+
     }
 
     public function getUserTasks($user_id)

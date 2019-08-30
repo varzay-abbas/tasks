@@ -47,7 +47,7 @@
                               
                            <ul>
                               @foreach ($user->tasks as $task)
-                                  <li>{{ $task->title }} ( {{ $task->points }} )</li>
+                                  <li>{{ $task->title }} ( {{ $task->points }} ) - id: {{ $task->id }} {{$id_points[$task->id]}} </li>
                                   <ul>
                                   @foreach ($task->childrenSubtasks as $childSubtask)
                                       @include('child_subtask', ['child_subtask' => $childSubtask])

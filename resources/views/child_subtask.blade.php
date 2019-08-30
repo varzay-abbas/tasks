@@ -1,4 +1,4 @@
-<li>{{ $child_subtask->title }} ( {{ $child_subtask->points }} ) - {{ $child_subtask->id }} - {{ $child_subtask->user_id }}</li>
+<li>{{ $child_subtask->title }} ( {{ $child_subtask->points }} ) -id: {{ $child_subtask->id }} </li>
 @if ($child_subtask->subtasks)
     <ul>
         @foreach ($child_subtask->subtasks as $childSubtask)

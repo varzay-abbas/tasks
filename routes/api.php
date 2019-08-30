@@ -20,6 +20,7 @@ Route::post('/task', 'TaskController@addTask');
 Route::put('/task/{id}', 'TaskController@updateTask');
 Route::get('/task/parent/{id}', 'TaskController@getParent');
 Route::get('/task/{id}/subtasks', 'TaskController@getSubtasks');
+Route::get('/children', 'TaskController@getChildren');
 
 
  
