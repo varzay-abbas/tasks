@@ -50,11 +50,11 @@ class TaskController extends Controller
     {
         
         //$task = Task::find(1);  
-        //print_r($task->getDescendentIdsArray());
+        print $this->getDescendantIdsFor(6)[0];
 
         
         //
-        $this->getTaskIdsChildInfo();
+        //$this->getTaskIdsChildInfo();
 
        // print_r($this->getDescendentIdsAndSelf(1));
         //die();
@@ -80,19 +80,19 @@ class TaskController extends Controller
         }
     }
     
-    public function getDescendentIdsFor($id) 
+    public function getDescendantIdsFor($id) 
     {        
          $task = Task::find($id);  
-         return $task->getDescendentIdsArray();
+         return $task->getDescendantIdsArray();
     }
 
     public function getTaskIdsChildInfo() {
         $ids = Task::pluck("id")->toArray();
         
         foreach($ids as $id) {
-            $this->id_points[$id] = Task::whereIn("id", $this->getDescendentIdsFor($id))->sum("points");
-            $this->id_undone[$id] = Task::whereIn("id", $this->getDescendentIdsFor($id))->where("is_done", 0)->count();
-            $this->id_descendants[$id] = $this->getDescendentIdsFor($id);
+            $this->id_points[$id] = Task::whereIn("id", $this->getDescendantIdsFor($id))->sum("points");
+            $this->id_undone[$id] = Task::whereIn("id", $this->getDescendantIdsFor($id))->where("is_done", 0)->count();
+            $this->id_descendants[$id] = $this->getDescendantIdsFor($id);
         }
 
     }
@@ -180,6 +180,8 @@ class TaskController extends Controller
                 "updated_at" => date("Y-m-d H:i:s", strtotime(now())),
     
             ]);
+            
+            if(!empty($request->parent_id)) $this->resetParentIdPoints($request->parent_id);
 
             return response()->json($task, 201);
         }
@@ -187,7 +189,17 @@ class TaskController extends Controller
         return response()->json(["Other Errors"], 500);
     }
 
+    public function resetParentIdPoints($parent_id) {
 
+        $task = Task::find($parent_id);
+        
+
+        if ($task != null ) {
+            $task->points = 0;
+            $task->is_done = 1;
+            $task->update();
+        }
+    }
     public function updateTask(Request $request, $id)
     {
         $task = Task::find($id);
@@ -200,12 +212,21 @@ class TaskController extends Controller
                 $task->parent_id = $request->parent_id;
                 $task->user_id = $request->user_id;
                 $task->title = $request->title;
-                $task->points = $request->points;
+                //check if it has any child then its points should be reset
+                //get first descendents id to check if it is self
+                $descendent = $this->getDescendantIdsFor($task->id)[0];
+                if ($descendent == $task->id)
+                    $task->points = $request->points;
+                else $task->points = 0;  //it has child 
+
                 $task->is_done = $request->is_done;
                 $task->updated_at = date("Y-m-d H:i:s", strtotime(now()));
                 $task->update();
                 $task = Task::find($id);
-            
+
+                //reset points if its parent node
+                if(!empty($request->parent_id)) $this->resetParentIdPoints($request->parent_id);
+
                 return response()->json($task, 201);
             }
         }

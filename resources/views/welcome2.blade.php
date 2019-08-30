@@ -47,10 +47,13 @@
                               
                            <ul>
                               @foreach ($user->tasks as $task)
-                                  <li>{{ $task->title }} ( {{ $task->points }} ) - id: {{ $task->id }} {{$id_points[$task->id]}} </li>
+                                  <li> 
+                                         
+                                      @if($id_undone[$task->id]) (X) @elseif($id_undone[$task->id] == 0) (V) @endif  {{ $task->title }} ( {{ $id_points[$task->id] }} ) - id: {{ $task->id }} {{$id_undone[$task->id]}} 
+                                    </li>
                                   <ul>
                                   @foreach ($task->childrenSubtasks as $childSubtask)
-                                      @include('child_subtask', ['child_subtask' => $childSubtask])
+                                      @include('child_subtask', ['child_subtask' => $childSubtask, 'id_undone' => $id_undone, 'id_points' => $id_points])
                                   @endforeach
                                   </ul>
                               @endforeach

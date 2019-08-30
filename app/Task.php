@@ -31,7 +31,7 @@ class Task extends Model
         return $ids;
     }
 
-    public function getDescendentIdsArray()
+    public function getDescendantIdsArray()
     {
         $ids =  $this->getIds();
         $ids_array = [];
