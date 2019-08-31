@@ -50,7 +50,7 @@ class TaskController extends Controller
     {
         
         //$task = Task::find(1);  
-        print $this->getDescendantIdsFor(6)[0];
+        //print $this->getDescendantIdsFor(6)[0];
 
         
         //
@@ -84,11 +84,12 @@ class TaskController extends Controller
     {        
          $task = Task::find($id);  
          return $task->getDescendantIdsArray();
+       
     }
 
     public function getTaskIdsChildInfo() {
         $ids = Task::pluck("id")->toArray();
-        
+       // print_r($ids); die();
         foreach($ids as $id) {
             $this->id_points[$id] = Task::whereIn("id", $this->getDescendantIdsFor($id))->sum("points");
             $this->id_undone[$id] = Task::whereIn("id", $this->getDescendantIdsFor($id))->where("is_done", 0)->count();
