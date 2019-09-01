@@ -12,8 +12,8 @@ class TasksTableSeeder extends Seeder
         DB::table('tasks')->insert([
             'user_id' => 1,
             'title' => 'Task1',
-            'points' => 0,
-            'is_done' => 0,
+            'points' => 1,
+            'is_done' => 1,
             'created_at' => date('Y-m-d H:i:s', strtotime(now())),
             'updated_at' => date('Y-m-d H:i:s', strtotime(now())),
         ]);
@@ -21,8 +21,8 @@ class TasksTableSeeder extends Seeder
         DB::table('tasks')->insert([
             'user_id' => 2,
             'title' => 'Task1',
-            'points' => 0,
-            'is_done' => 0,
+            'points' => 1,
+            'is_done' => 1,
             'created_at' => date('Y-m-d H:i:s', strtotime(now())),
             'updated_at' => date('Y-m-d H:i:s', strtotime(now())),
         ]);
@@ -30,8 +30,8 @@ class TasksTableSeeder extends Seeder
         DB::table('tasks')->insert([
             'user_id' => 3,
             'title' => 'Task1',
-            'points' => 0,
-            'is_done' => 0,
+            'points' => 1,
+            'is_done' => 1,
             'created_at' => date('Y-m-d H:i:s', strtotime(now())),
             'updated_at' => date('Y-m-d H:i:s', strtotime(now())),
         ]);
