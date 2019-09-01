@@ -1,31 +1,32 @@
-    html,
-    body {
-        background-color: #fff;
-        color: #636b6f;
-        font-family: 'Nunito', sans-serif;
-        font-weight: 200;
-        height: 100vh;
-        margin: 0;
-    }
-    
-    .full-height {
-        height: 100vh;
-    }
-    
-    #user_table {
-        width: 95%;
-        margin: 2% 2% 0 2%;
-    }
-    
-    .fa {
-        cursor: pointer;
-    }
-    
-    .tasks ul {
-        margin: 0 !important;
-    }
-    
-    .sub_task_container,
-    .top_new_task_btn {
-        float: right;
-    }
+html,
+body {
+  background-color: #fff;
+  color: #636b6f;
+  font-family: "Nunito", sans-serif;
+  font-weight: 200;
+  height: 100vh;
+  margin: 0;
+}
+
+.full-height {
+  height: 100vh;
+}
+
+#user_table {
+  width: 95%;
+  margin: 2% 2% 0 2%;
+}
+
+.fa {
+  cursor: pointer;
+}
+
+.tasks ul {
+  margin: 0 !important;
+}
+
+.sub_task_container,
+.top_new_task_btn {
+  float: right;
+}
+
