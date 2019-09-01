@@ -50,7 +50,7 @@ class TaskController extends Controller
             $id_undone = $this->id_undone;
             $id_descendants = $this->id_descendants;
 
-            return view('welcome2', compact('users', 'id_points', 'id_undone', 'id_descendants'));
+            return view('tasks', compact('users', 'id_points', 'id_undone', 'id_descendants'));
         } catch (Exception $e) {
             report($e);
 
