@@ -53,6 +53,4 @@ class TaskTest extends TestCase
                  'parent_id' => '1',
              ]);
     }
-
-    
 }

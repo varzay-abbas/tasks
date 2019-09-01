@@ -1,13 +1,16 @@
-$(document).ready(function() {
+$(document).ready(function(){
+    
+  });
+  
+  function setUserInfo(user, parent_id) {
 
-});
-
-function setUserInfo(user, parent_id) {
-
+    
     $("#email").val(user.email);
     $("#user_id").val(user.id);
     $("#parent_id").val(parent_id);
-}
+    
+
+  }
 
 /*
 function completePayment() {

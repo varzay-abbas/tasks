@@ -49,14 +49,14 @@ class TaskController extends Controller
     public function index()
     {
         
-        //$task = Task::find(1);  
+        //$task = Task::find(1);
         //print $this->getDescendantIdsFor(6)[0];
 
         
         //
         //$this->getTaskIdsChildInfo();
 
-       // print_r($this->getDescendentIdsAndSelf(1));
+        // print_r($this->getDescendentIdsAndSelf(1));
         //die();
         try {
             $users = ServicesGithub::getUsers();
@@ -65,9 +65,9 @@ class TaskController extends Controller
                 $user->total_earned_points = $this->getTotalEarnedPoints($user->id);
                 $user->tasks = $this->getUserTasks($user->id);
             }
-           // return response()->json($users);
-           //fix each id point, done status, descendants  
-           $this->getTaskIdsChildInfo();
+            // return response()->json($users);
+            //fix each id point, done status, descendants
+            $this->getTaskIdsChildInfo();
             
             $id_points = $this->id_points;
             $id_undone = $this->id_undone;
@@ -80,22 +80,21 @@ class TaskController extends Controller
         }
     }
     
-    public function getDescendantIdsFor($id) 
-    {        
-         $task = Task::find($id);  
-         return $task->getDescendantIdsArray();
-       
+    public function getDescendantIdsFor($id)
+    {
+        $task = Task::find($id);
+        return $task->getDescendantIdsArray();
     }
 
-    public function getTaskIdsChildInfo() {
+    public function getTaskIdsChildInfo()
+    {
         $ids = Task::pluck("id")->toArray();
-       // print_r($ids); die();
-        foreach($ids as $id) {
+        // print_r($ids); die();
+        foreach ($ids as $id) {
             $this->id_points[$id] = Task::whereIn("id", $this->getDescendantIdsFor($id))->sum("points");
             $this->id_undone[$id] = Task::whereIn("id", $this->getDescendantIdsFor($id))->where("is_done", 0)->count();
             $this->id_descendants[$id] = $this->getDescendantIdsFor($id);
         }
-
     }
 
     public function getUserTasks($user_id)
@@ -182,7 +181,9 @@ class TaskController extends Controller
     
             ]);
             
-            if(!empty($request->parent_id)) $this->resetParentIdPoints($request->parent_id);
+            if (!empty($request->parent_id)) {
+                $this->resetParentIdPoints($request->parent_id);
+            }
 
             return response()->json($task, 201);
         }
@@ -190,12 +191,12 @@ class TaskController extends Controller
         return response()->json(["Other Errors"], 500);
     }
 
-    public function resetParentIdPoints($parent_id) {
-
+    public function resetParentIdPoints($parent_id)
+    {
         $task = Task::find($parent_id);
         
 
-        if ($task != null ) {
+        if ($task != null) {
             $task->points = 0;
             $task->is_done = 1;
             $task->update();
@@ -216,9 +217,11 @@ class TaskController extends Controller
                 //check if it has any child then its points should be reset
                 //get first descendents id to check if it is self
                 $descendent = $this->getDescendantIdsFor($task->id)[0];
-                if ($descendent == $task->id)
+                if ($descendent == $task->id) {
                     $task->points = $request->points;
-                else $task->points = 0;  //it has child 
+                } else {
+                    $task->points = 0;
+                }  //it has child
 
                 $task->is_done = $request->is_done;
                 $task->updated_at = date("Y-m-d H:i:s", strtotime(now()));
@@ -226,7 +229,9 @@ class TaskController extends Controller
                 $task = Task::find($id);
 
                 //reset points if its parent node
-                if(!empty($request->parent_id)) $this->resetParentIdPoints($request->parent_id);
+                if (!empty($request->parent_id)) {
+                    $this->resetParentIdPoints($request->parent_id);
+                }
 
                 return response()->json($task, 201);
             }

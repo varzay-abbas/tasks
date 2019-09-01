@@ -37,15 +37,15 @@ class Task extends Model
         $ids_array = [];
 
         foreach ($ids as $id) {
-          //remove self id and keeping only descendent ids   
-          if($id != $this->id) {
-              $ids_array[] = $id;
-          }
+            //remove self id and keeping only descendent ids
+            if ($id != $this->id) {
+                $ids_array[] = $id;
+            }
         }
-        //If no child ,just return self 
-        if(empty($ids_array)) $ids_array = [$this->id]; 
+        //If no child ,just return self
+        if (empty($ids_array)) {
+            $ids_array = [$this->id];
+        }
         return $ids_array;
     }
-
-
 }

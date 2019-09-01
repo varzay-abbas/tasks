@@ -1,5 +1,3 @@
-
-## Laravel based Simple Task Management System Installation
 --git clone https://github.com/varzay-abbas/tasks.git
 -- composer install
 --cp .env.example .env

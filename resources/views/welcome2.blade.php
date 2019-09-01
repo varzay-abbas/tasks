@@ -1,26 +1,7 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Tasks Manage</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-       
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-        <link href="/css/tasks.css"  rel="stylesheet" >
+@extends('layouts.app')
+@section('content')
 
 
-
-    
-       
-    </head>
-    <body>
         <div class="flex-center position-ref full-height">
            
             <div class="content">
@@ -70,8 +51,4 @@
             </div>
         </div>
 
-
-<script src="/js/tasks.js"></script>
-
-    </body>
-</html>
+        @endsection

@@ -1,6 +1,5 @@
 <li>
-@if($id_undone[$child_subtask->id]) (X) @elseif($id_undone[$child_subtask->id] == 0) (V) @endif  {{ $child_subtask->title }} ( {{ $id_points[$child_subtask->id] }} )   
-
+    @if($id_undone[$child_subtask->id]) (X) @elseif($id_undone[$child_subtask->id] == 0) (V) @endif  {{ $child_subtask->title }} ( {{ $id_points[$child_subtask->id] }} )   
 </li>
 @if ($child_subtask->subtasks)
     <ul>
