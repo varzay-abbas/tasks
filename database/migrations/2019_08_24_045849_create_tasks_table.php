@@ -12,7 +12,7 @@ class CreateTasksTable extends Migration
      * @return void
      */
     public function up()
-    {  
+    {
         Schema::create('tasks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger("parent_id")->nullable();
@@ -20,7 +20,7 @@ class CreateTasksTable extends Migration
             $table->string("title", 255);
             $table->integer("points")->default(0);
             $table->boolean("is_done")->default(0);
-            $table->timestamps();            
+            $table->timestamps();
             $table->foreign('parent_id')->references('id')->on('tasks');
         });
     }
