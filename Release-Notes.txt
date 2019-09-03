@@ -31,3 +31,5 @@
 - Error handling Maintained
 - PSR-2 Standard Followed
 - Scope Followed (All the activities of github users, task, subtask, points)
+- Dynamic Depth of Task Sub Task Child Creation
+- User and Task/Subtask wise Points Summary
